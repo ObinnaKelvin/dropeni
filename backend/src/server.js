@@ -6,9 +6,9 @@ const app = express();
 
 const __dirname = path.resolve();
 
-app.get("/", (req, res) => {
-    res.send("Hello World!")
-})
+// app.get("/", (req, res) => {
+//     res.send("Hello World!")
+// })
 app.get("/api/health", (req, res) => {
     res.status(200).json({ message: "Health is Great!" })
 })
@@ -23,5 +23,5 @@ if (ENV.NODE_ENV === "production") {
 }
 
 app.listen(ENV.PORT, () => {
-    console.log("Server is running on port 3000")
+    console.log(`Server is running on port ${ENV.PORT}`)
 })
