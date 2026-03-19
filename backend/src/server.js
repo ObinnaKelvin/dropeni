@@ -1,6 +1,8 @@
 import express from "express";
-import path from "path"; 
+import path from "path";
+import { clerkMiddleware } from '@clerk/express' 
 import { ENV } from "./config/env.js";
+import { connectDB } from "./config/db.js";
 
 const app = express();
 
@@ -9,6 +11,9 @@ const __dirname = path.resolve();
 // app.get("/", (req, res) => {
 //     res.send("Hello World!")
 // })
+
+app.use(clerkMiddleware()); //req.auth will be available in all routes after this middleware
+
 app.get("/api/health", (req, res) => {
     res.status(200).json({ message: "Health is Great!" })
 })
@@ -22,6 +27,16 @@ if (ENV.NODE_ENV === "production") {
     });
 }
 
-app.listen(ENV.PORT, () => {
-    console.log(`Server is running on port ${ENV.PORT}`)
-})
+const startServer = async () => {
+    try {
+        await connectDB(); 
+        app.listen(ENV.PORT, () => {
+            console.log(`Server is running on port ${ENV.PORT}`);
+        });
+    } catch (error) {
+        console.error('❌❌Error starting the server:', error);
+        process.exit(1); //exit code 1 means failure, 0 means success
+    }   
+}
+
+startServer();
