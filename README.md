@@ -1,4 +1,3 @@
-Here’s a **clean, professional, GitHub-ready README** for your project:
 
 ---
 
