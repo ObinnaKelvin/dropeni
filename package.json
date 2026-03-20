@@ -23,7 +23,11 @@
   },
   "homepage": "https://github.com/ObinnaKelvin/dropeni#readme",
   "dependencies": {
+    "@clerk/express": "^2.0.6",
+    "cloudinary": "^2.9.0",
     "dotenv": "^17.3.1",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "inngest": "^4.0.2",
+    "mongoose": "^9.3.1"
   }
 }
