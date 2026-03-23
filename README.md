@@ -145,7 +145,7 @@ Dropeni aims to become a **globally recognised logistics and commerce platform**
 
 ## 👤 Author
 
-Developed by **Kobisoft Digitals**
+Developed by Obinna Okere of **Kobisoft Digitals**. 
 Driving digital transformation in logistics and e-commerce.
 
 ---
