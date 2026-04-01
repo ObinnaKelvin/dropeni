@@ -8,15 +8,17 @@ import { ENV } from "./env.js";
 export const inngest = new Inngest({ id: "dropeni" });
 
 const syncUser = inngest.createFunction(
-    {id: "sync-user"},
-    {event: "clerk/user.created"},
+    {
+        id: "sync-user",
+        triggers: { event: "clerk/user.created" }
+    },
     async ({ event }) => {
         await connectDB();
         const { id, email_addresses, first_name, last_name, image_url } = event.data;
-        const email = email_addresses[0]?.email_address;
+        
         await User.create({ 
             clerkId: id, 
-            email, 
+            email: email_addresses[0]?.email_address, 
             name: `${first_name || ""} ${last_name || ""}` || "User", 
             imageUrl: image_url, 
             addresses: [],
@@ -25,8 +27,10 @@ const syncUser = inngest.createFunction(
     });
     
 const deleteUserFromDB = inngest.createFunction(
-    {id: "delete-user-from-db"},
-    {event: "clerk/user.deleted"},
+    {
+        id: "delete-user-from-db",
+        triggers: { event: "clerk/user.deleted" }
+    },
     async ({ event }) => {
         await connectDB();
         const { id } = event.data;
