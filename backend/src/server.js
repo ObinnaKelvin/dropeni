@@ -9,6 +9,7 @@ import { functions, inngest } from "./config/inngest.js";
 const app = express();
 
 const __dirname = path.resolve();
+const port = process.env.PORT || ENV.PORT || 5004;
 
 app.use(express.json()); // Middleware to parse JSON bodies from incoming requests
 app.use(clerkMiddleware()); // Add Clerk middleware to parse authentication data from requests
@@ -34,8 +35,8 @@ if (ENV.NODE_ENV === "production") {
 const startServer = async () => {
     try {
         await connectDB(); 
-        app.listen(ENV.PORT, () => {
-            console.log(`Server is running on port ${ENV.PORT}`);
+        app.listen(port, () => {
+            console.log(`Server is running on port ${port}`);
         });
     } catch (error) {
         console.error('❌❌Error starting the server:', error);
