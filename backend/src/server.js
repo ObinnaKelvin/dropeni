@@ -5,6 +5,11 @@ import { ENV } from "./config/env.js";
 import { connectDB } from "./config/db.js";
 import { serve } from "inngest/express";
 import { functions, inngest } from "./config/inngest.js";
+import adminRoutes from "./routes/admin.route.js";
+import productRoutes from "./routes/product.route.js";
+import orderRoutes from "./routes/order.route.js";
+import userRoutes from "./routes/user.route.js";
+import cors from "cors";
 
 const app = express();
 
@@ -13,6 +18,7 @@ const port = process.env.PORT || ENV.PORT || 5004;
 
 app.use(express.json()); // Middleware to parse JSON bodies from incoming requests
 app.use(clerkMiddleware()); // Add Clerk middleware to parse authentication data from requests
+app.use(cors({ credentials: true })); // Enable CORS for all routes, allowing requests from any origin. Adjust as needed for production.
 
 app.use("/api/inngest", serve({ client: inngest, functions })); // Serve Inngest functions at the /inngest endpoint
 
@@ -22,6 +28,12 @@ app.get("/", (req, res) => {
 app.get("/api/health", (req, res) => {
     res.status(200).json({ message: "Health is Great!" })
 })
+
+app.use("/api/admin", adminRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/reviews", reviewRoutes);
 
 //make our app ready for deployment by listening to a port
 
