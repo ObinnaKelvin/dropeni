@@ -4,7 +4,7 @@ const App = () => {
   return (
     
     <div>
-      <h1>Welcome to the Admin Panel</h1>
+      <h1 className='text-red-500 text-2xl font-bold'>Welcome to the Admin Panel, time stamp: 4hrs, 38mins, 55secs</h1>
       <header>
         <Show when="signed-out">
           <SignInButton />

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { ClerkProvider } from '@clerk/react'
+import { BrowserRouter } from 'react-router'
 // import { ClerkProvider } from '@clerk/clerk-react'
 
 //Import Clerk Publishable Key from environment variables
@@ -15,9 +16,11 @@ if (!clerkPublishableKey) {
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ClerkProvider publishableKey={clerkPublishableKey}>
-      <App />
-    </ClerkProvider>
+      <BrowserRouter>
+        <ClerkProvider publishableKey={clerkPublishableKey}>
+            <App />
+        </ClerkProvider>
+      </BrowserRouter>
   </StrictMode>,
 )
 
